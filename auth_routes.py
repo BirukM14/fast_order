@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 from database import Session, engine
-from models import user
+from models import User
 from fastapi.exceptions import HTTPException
-from werkeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
+from schemas import SignUpModel
 
 auth_router = APIRouter(
 

@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class SignUpModel(BaseModel):
-     id :Optional[int]
+    id :Optional[int]
     username :str
     email:str
     password :str
@@ -18,7 +18,7 @@ class SignUpModel(BaseModel):
                 'email':'biggiemereawoq@gmail.com',
                 'password':'password',
                 'is_staff':False,
-                'is_active';True
+                'is_active':True
 
 
             }
