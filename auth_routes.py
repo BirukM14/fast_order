@@ -18,7 +18,7 @@ async def hello():
     return {"message": "my g"}
 
 
-@auth_router.post('/signup', response_model=SignUpModel,
+@auth_router.post('/signup', 
                   status_code=status.HTTP_201_CREATED)
 async def signup(user: SignUpModel):  # Corrected typo here
     db_email = session.query(User).filter(User.email == user.email).first()  # Corrected typo here
