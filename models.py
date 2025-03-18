@@ -11,7 +11,7 @@ class User(Base):
     password=Column(Text,nullable=True)
     is_staff=Column(Boolean,default=False)
     is_active=Column(Boolean,default=False)
-    orders=relationship('Ooder', back-populates='user')
+    orders=relationship('Order', back_populates=='user')
 
     def __repr__(self):
         return f"<User {self.username}"
@@ -35,3 +35,8 @@ class Order (Base):
     order_statuses=Column(ChoiceType(Choices=ORDER_STATUSES,default='pending'))
     pizza_size=Column(ChoiceType(Choices=PIZZA_SIZES, default='SMALL'))
     user_id=Column(Integer,ForignKey('user.id'))
+    users=relationship('User', back_populates=='orders')
+
+    def __repr__(self):
+        return f"<Order  {self.id}>"
+
