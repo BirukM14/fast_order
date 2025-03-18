@@ -1,7 +1,7 @@
 from database import Base
 from sqlalchemy import Column,Integer,Boolean,Text,String,ForignKey
 from sqlalchemy_utils import ChoiceType
-
+from sqlalchemy.orm import relationship
 
 class User(Base):
     __tablename__='user'
@@ -11,7 +11,7 @@ class User(Base):
     password=Column(Text,nullable=True)
     is_staff=Column(Boolean,default=False)
     is_active=Column(Boolean,default=False)
-
+    orders=relationship('Ooder', back-populates='user')
 
     def __repr__(self):
         return f"<User {self.username}"
@@ -34,3 +34,4 @@ class Order (Base):
     quantity=Column(Integer,nullable=True)
     order_statuses=Column(ChoiceType(Choices=ORDER_STATUSES,default='pending'))
     pizza_size=Column(ChoiceType(Choices=PIZZA_SIZES, default='SMALL'))
+    user_id=Column(Integer,ForignKey('user.id'))
