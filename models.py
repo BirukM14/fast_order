@@ -1,6 +1,7 @@
 from database import Base
 from sqlalchemy import Column,Integer,Boolean,Text,String,ForignKey
 from sqlalchemy_utils import ChoiceType
+
 from sqlalchemy.orm import relationship
 
 class User(Base):
