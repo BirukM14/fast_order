@@ -1,12 +1,25 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
+class SignUpModel(BaseModel):
+     id :Optional[int]
+    username :str
+    email:str
+    password :str
+    is_staff :Optional[bool]
+    is_active :Optional[bool]
 
-class SignUpModlel(BaseModel):
-     id = Column(Integer, primary_key=True)
-    username = Column(String(25), unique=True)
-    email = Column(String(80), unique=True)
-    password = Column(Text, nullable=True)
-    is_staff = Column(Boolean, default=False)
-    is_active = Column(Boolean, default=False)
-    
+    class Config:
+        orm_mode=True
+        schema_extra={
+            'example':{
+                'username':'hoje',
+                'email':'biggiemereawoq@gmail.com',
+                'password':'password',
+                'is_staff':False,
+                'is_active';True
+
+
+            }
+        }
