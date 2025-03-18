@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from database import Session, engine
 from models import user
 from fastapi.exceptions import HTTPException
+from werkeug.security import generate_password_hash, check_password_hash
 
 auth_router = APIRouter(
 
@@ -26,3 +27,15 @@ async def signup(user:SignUpModlel):
         return HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
         detail="user with the username already exists"
         )
+
+    new_user=User(
+        username=user.username,
+        email=user.email,
+        password=generate_password_hash(user.password)
+        is_active=user.is_active
+        is_staff=user.is_staff
+    )
+
+    session.add(new_user)
+
+    session.commit
