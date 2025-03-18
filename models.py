@@ -1,5 +1,6 @@
 from database import Base
 from sqlalchemy import Column,Integer,Boolean,Text,String
+from sqlalchemy_utils import ChoiceType
 
 
 class User(Base):
@@ -16,6 +17,12 @@ class User(Base):
         return f"<User {self.username}"
 
 class Choice(Base):
+
+    ORDER_STATUSES=(
+        ('PENDING','pending'),
+        ('IN-TRANSIT','in-transit'),
+        ('DELEVERED','delivered')
+    )
     __tablename__="orders"
     id=Column(Integer,primary_key=True)
     quantity=Column(Integer,nullable=True)
