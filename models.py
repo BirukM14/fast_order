@@ -23,6 +23,14 @@ class Choice(Base):
         ('IN-TRANSIT','in-transit'),
         ('DELEVERED','delivered')
     )
+    PIZZA_SIZES=(
+        ('SMALL','small'),
+        ('MEDIUM','medium'),
+        ('LARGE','large'),
+        ('EXTRA-LARGE','extra-large')
+    )
     __tablename__="orders"
     id=Column(Integer,primary_key=True)
     quantity=Column(Integer,nullable=True)
+    order_statuses=Column(ChoiceType(Choices=ORDER_STATUSES,default='pending'))
+    pizza_size=Column(ChoiceType(Choices=PIZZA_SIZES, default='SMALL'))
