@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import Column,Integer,Boolean,Text,String
+from sqlalchemy import Column,Integer,Boolean,Text,String,ForignKey
 from sqlalchemy_utils import ChoiceType
 
 
@@ -16,7 +16,7 @@ class User(Base):
     def __repr__(self):
         return f"<User {self.username}"
 
-class Choice(Base):
+class Order (Base):
 
     ORDER_STATUSES=(
         ('PENDING','pending'),
