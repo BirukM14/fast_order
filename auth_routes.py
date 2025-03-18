@@ -19,7 +19,8 @@ async def hello():
     return {"message":"my g"}
 
 
-@auth_router.post('/signup')
+@auth_router.post('/signup',response_model=SignUpModel,
+    status_code=status.HTTP_201_CREATED)
 async def signup(user:SignUpModlel):
     db_email-session.query(User).filter(User.email=user.email).first()
 
@@ -38,4 +39,6 @@ async def signup(user:SignUpModlel):
 
     session.add(new_user)
 
-    session.commit
+    session.commit()
+
+    return new_user
