@@ -4,6 +4,7 @@ from database import engine
 from models import User
 from werkzeug.security import generate_password_hash
 from schemas import SignUpModel
+from fastapi_jwt_auth import AuthJWT
 
 auth_router = APIRouter(
     prefix='/auth',
@@ -43,3 +44,8 @@ async def signup(user: SignUpModel):  # Corrected typo here
     session.commit()
 
     return new_user
+
+
+@auth_router.post('/login')
+async def login():
+    pass
