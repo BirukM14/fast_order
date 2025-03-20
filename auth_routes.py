@@ -1,10 +1,11 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status,Depends
 from sqlalchemy.orm import Session
 from database import engine
 from models import User
 from werkzeug.security import generate_password_hash
-from schemas import SignUpModel
+from schemas import SignUpModel,LoginModel
 from fastapi_jwt_auth import AuthJWT
+from fastapi.encoders import jsonable_encoder
 
 auth_router = APIRouter(
     prefix='/auth',
@@ -47,5 +48,16 @@ async def signup(user: SignUpModel):  # Corrected typo here
 
 
 @auth_router.post('/login')
-async def login():
-    pass
+async def login(user:LoginModel,Authorize:Authjwt=Depends()):
+    db_user=session.query(User).filter(User.username==user.username).first()
+
+    if db_user and check_password_hash(db_user.password,user.password)
+        access_token=Authorize.create_access_token(subject=db_user.username)
+        refresh_token=Authorize.create_refresh_t0ken(subject=db_user.username)
+
+
+        response={
+            "access":access_token,
+            "refresh":refresh_token
+
+        }
