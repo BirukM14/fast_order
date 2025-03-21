@@ -63,6 +63,16 @@ async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
     session.commit()
 
 
+    response={
+        "pizza_size":new_order_size,
+        "quantity":new_order.quantity,
+        "id":new_order.id,
+        "order_status":new_order.order_status
+    }
+
+    retrun jsonable_encoder(response)
+
+
 
 
 
