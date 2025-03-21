@@ -1,7 +1,7 @@
 from fastapi import APIRouter,Depends
 from fastapi _jwt_auth import AuthJWT
 from models import User,Order
-from schemas import orderModel
+from schemas import orderModel, OrderStatausModel
 from fastapi.exceptions import HTTPException
 from database import engine, Session
 from fastapi.encoders import jsonable_encoder
@@ -198,6 +198,19 @@ async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
     return jsonable_encoder(order_to_update)
 
 
+
+
+
+@order_router.patch("/order/update/{id}")
+async def update_order_status(id:int,Authorize:Authjwt=Depends())
+    try:
+        Authorize.jwt_required()
+
+          except:
+        raise HTTPException as e (
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="invalid token"
+        )
 
 
 
