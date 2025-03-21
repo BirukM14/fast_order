@@ -4,6 +4,7 @@ from models import User,Order
 from schemas import orderModel
 from fastapi.exceptions import HTTPException
 from database import engine, Session
+from fastapi.encoders import jsonable_encoder
 
 
 order_router = APIRouter(
