@@ -212,6 +212,14 @@ async def update_order_status(id:int,Authorize:Authjwt=Depends())
             detail="invalid token"
         )
 
+    username=Authorize.get_jwt_subject()
+
+    current_user=session.query(User).filter(User.username=username)
+
+    if current_user.is_staff:
+        order=session.query(Order).filter(Order.id==id).first()
+
+        
 
 
 
