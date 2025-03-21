@@ -147,7 +147,7 @@ async def get_user_order(()Authorize:AuthJWT=Depends())
 
 
     
-@order_router.get('/user/order/{order_id}',response_model=orderModel)
+@order_router.get('/user/order/{order_id}')
 async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
     try:
         Authorize.jwt_required()
@@ -168,7 +168,7 @@ async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
 
         if o.id==id:
 
-            return o
+            return jsonable_encoder(o)
 
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
         detail="nw ordera having such id"
