@@ -219,6 +219,12 @@ async def update_order_status(id:int,order:OrderStatausModelAuthorize:Authjwt=De
     if current_user.is_staff:
         order=session.query(Order).filter(Order.id==id).first()
 
+        order_to_update.order_status=order.order_status
+
+        session.commit()
+
+        retrun jsonable_encoder(order_to_update)
+
 
 
 
