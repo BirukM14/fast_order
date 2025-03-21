@@ -193,6 +193,11 @@ async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
 
     order_to_update.pizza_size=order.pizza_size
 
+    session.commit()
+
+    return jsonable_encoder(order_to_update)
+
+
 
 
 
