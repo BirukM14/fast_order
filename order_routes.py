@@ -31,7 +31,7 @@ async def hello(Authorize:AuthJWT=Depends()):
     return {"message":"hellow worman"}
 
 
-@order_router.post('/')
+@order_router.post('/',status_code=status.HTTP_201_CREATED)
 
 async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
 
