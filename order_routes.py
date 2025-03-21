@@ -3,10 +3,13 @@ from fastapi _jwt_auth import AuthJWT
 from models import User,Order
 from schemas import orderModel
 from fastapi.exceptions import HTTPException
-from database import engine, session
+from database import engine, Session
 
 
-order_router = APIRouter()
+order_router = APIRouter(
+    prefix="/orders",
+    tags=['orders']
+)
 
 
 @order_router.get('/')
