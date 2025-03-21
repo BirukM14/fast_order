@@ -147,7 +147,7 @@ async def get_user_order(()Authorize:AuthJWT=Depends())
 
 
     
-@order_router.get('/user/order/{order_id}')
+@order_router.get('/user/order/{order_id}',response_model=orderModel)
 async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
     try:
         Authorize.jwt_required()
@@ -165,7 +165,10 @@ async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
     orders=current_user.orders
 
     for o in orders:
-        
+
+        if o.id==id:
+
+
 
 
 
