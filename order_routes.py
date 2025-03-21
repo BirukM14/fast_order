@@ -202,7 +202,7 @@ async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
 
 
 @order_router.patch("/order/update/{id}")
-async def update_order_status(id:int,Authorize:Authjwt=Depends())
+async def update_order_status(id:int,order:OrderStatausModelAuthorize:Authjwt=Depends())
     try:
         Authorize.jwt_required()
 
@@ -219,7 +219,7 @@ async def update_order_status(id:int,Authorize:Authjwt=Depends())
     if current_user.is_staff:
         order=session.query(Order).filter(Order.id==id).first()
 
-        
+
 
 
 
