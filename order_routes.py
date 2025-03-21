@@ -87,7 +87,7 @@ async def list_all_orders(Authorize:AuthJWT=Depends()):
 
     current_user=Authorize.get_jwt_subject()
 
-    user=session.query(User).filter(User.username=current_user).first()
+    user=session.query(User).filter(User.username==current_user).first()
 
     if user.is_staff:
         orders=session.query(Order).all()
@@ -114,13 +114,34 @@ async def get_order_by_id(id:int,Authorize:AuthJWT=Depends())
 
     user=Authorize.get_jwt_subject()
 
-    current_user=session.query(User).filter(User.username=user)
+    current_user=session.query(User).filter(User.username==user)
 
     if current_user.is_staff:
 
         order= session.query(Order).filter(Order.id==id).first()
 
         return jsonable_encoder(order)
+
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail='user not allowed to carry out the requerst'
+    )
+
+
+@order_router.get('/users/order')
+async def get_user_order(()Authorize:AuthJWT=Depends())
+    try:
+        Authorize.jwt_required()
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            details='invalid token'
+        )
+    user=Authorize.get_jwt_subject()
+    
+
+    current_user=session.query(User).filter(User.username==user).first()
 
 
     
