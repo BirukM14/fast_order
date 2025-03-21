@@ -96,7 +96,7 @@ async def list_all_orders(Authorize:AuthJWT=Depends()):
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        details='invalid user'
+        detail='invalid user'
     )
 
         )
@@ -109,7 +109,7 @@ async def get_order_by_id(id:int,Authorize:AuthJWT=Depends())
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            details="invthis user is not allowed to this alise "
+            detail="invthis user is not allowed to this alise "
         )
 
     user=Authorize.get_jwt_subject()
