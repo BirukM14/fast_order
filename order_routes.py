@@ -223,7 +223,13 @@ async def update_order_status(id:int,order:OrderStatausModelAuthorize:Authjwt=De
 
         session.commit()
 
-        retrun jsonable_encoder(order_to_update)
+        response={
+            "quantity":order_to_update.quantity,
+            "pizza_size":order_to_update.pizza_size,
+            "order_status":order_to_update.order_status
+        }
+
+        return jsonable_encoder(response)
 
 
 
