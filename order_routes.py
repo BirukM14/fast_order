@@ -42,8 +42,24 @@ async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
 
     current_user=Authorize.get_jwt_subject()
 
+    user = session.query(User).filter(User.username=current_user).first()
 
-    
+
+    new_order =Order(
+        pizza_size=order.pizza_size,
+        quantity=order.quantity
+    )
+
+    new_order.user=user
+
+    session.add(new_user)
+
+    session.commit()
+
+
+
+
+
 
 
 
