@@ -3,7 +3,7 @@ from fastapi _jwt_auth import AuthJWT
 from models import User,Order
 from schemas import orderModel
 from fastapi.exceptions import HTTPException
-from data
+from database import engine, session
 
 
 order_router = APIRouter()
