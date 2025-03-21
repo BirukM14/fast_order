@@ -147,8 +147,16 @@ async def get_user_order(()Authorize:AuthJWT=Depends())
 
 
     
-
-
+@order_router.get('/user/order/{order_id}')
+async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
+    try:
+        Authorize.jwt_required()
+    
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="invalid token"
+        )
 
 
 
