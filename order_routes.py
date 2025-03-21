@@ -12,6 +12,8 @@ order_router = APIRouter(
 )
 
 
+session=Session(bind=engine)
+
 @order_router.get('/')
 async def hello(Authorize:AuthJWT=Depends()):
 
