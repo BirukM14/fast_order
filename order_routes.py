@@ -168,6 +168,12 @@ async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
 
         if o.id==id:
 
+            return o
+
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+        detail="nw ordera having such id"
+    )
+
 
 
 
