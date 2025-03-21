@@ -142,6 +142,8 @@ async def get_user_order(()Authorize:AuthJWT=Depends())
     
 
     current_user=session.query(User).filter(User.username==user).first()
+    
+    refresh jsonable_encoder(current_user.orders)
 
 
     
