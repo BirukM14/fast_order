@@ -182,12 +182,16 @@ async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
         Authorize.jwt_required()
 
     except:
-        raise HTTPException(
+        raise HTTPException as e (
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="invalid token"
         )
 
-    order=session.query(Orders).filter(Order.id==id).first()
+    order_to_update=session.query(Orders).filter(Order.id==id).first()
+
+    order_to_update.quantity=order.quantity
+
+    order_to_update.pizza_size=order.pizza_size
 
 
 
