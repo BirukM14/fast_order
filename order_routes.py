@@ -58,7 +58,7 @@ async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
 
     new_order.user=user
 
-    session.add(new_user)
+    session.add(new_order)
 
     session.commit()
 
@@ -70,7 +70,7 @@ async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
         "order_status":new_order.order_status
     }
 
-    retrun jsonable_encoder(response)
+    return jsonable_encoder(response)
 
 
 
