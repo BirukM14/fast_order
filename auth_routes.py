@@ -61,3 +61,6 @@ async def login(user:LoginModel,Authorize:Authjwt=Depends()):
             "refresh":refresh_token
 
         }
+
+    raise HTTPException(status_code.HTTP_400_BAD_REQUEST,
+    detail="invalid user or password")
