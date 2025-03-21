@@ -53,7 +53,7 @@ async def login(user:LoginModel,Authorize:Authjwt=Depends()):
 
     if db_user and check_password_hash(db_user.password,user.password)
         access_token=Authorize.create_access_token(subject=db_user.username)
-        refresh_token=Authorize.create_refresh_t0ken(subject=db_user.username)
+        refresh_token=Authorize.create_refresh_token(subject=db_user.username)
 
 
         response={
@@ -61,6 +61,8 @@ async def login(user:LoginModel,Authorize:Authjwt=Depends()):
             "refresh":refresh_token
 
         }
+
+        re
 
     raise HTTPException(status_code.HTTP_400_BAD_REQUEST,
     detail="invalid user or password")
