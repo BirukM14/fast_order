@@ -175,6 +175,21 @@ async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
     )
 
 
+@order_router.put('/order/update/{id}')
+async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
+
+    try:
+        Authorize.jwt_required()
+
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="invalid token"
+        )
+
+    order=session.query(Orders).filter(Order.id==id).first()
+
+
 
 
 
