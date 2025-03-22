@@ -238,11 +238,18 @@ async def delete_an_order(id:int,Authorize:AuthJWT=Depends())
      try:
         Authorize.jwt_required()
 
-          except:
+    except:
         raise HTTPException as e (
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="invalid token"
         )
+
+
+    order_to_delete=session.query(Order).filter(Order.id==id).first()
+
+    session.delete(order_to_delete)
+
+    session.commit()
 
     
 
