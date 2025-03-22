@@ -237,24 +237,24 @@ async def update_order_status(id:int,order:OrderStatausModel,Authorize:Authjwt=D
 
 
 @order_router.delete("/order/delete/{id}")
-async def delete_an_order(id:int,Authorize:AuthJWT=Depends())
+async def delete_an_order(id:int,Authorize:AuthJWT=Depends()):
      try:
         Authorize.jwt_required()
 
-    except:
-        raise HTTPException as e (
+     except:
+        raise HTTPException (
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="invalid token"
         )
 
 
-    order_to_delete=session.query(Order).filter(Order.id==id).first()
+     order_to_delete=session.query(Order).filter(Order.id==id).first()
 
-    session.delete(order_to_delete)
+     session.delete(order_to_delete)
 
-    session.commit()
+     session.commit()
 
-    return jsonable_encoder(order_to_delete)
+     return jsonable_encoder(order_to_delete)
 
     
 
