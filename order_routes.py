@@ -33,8 +33,7 @@ async def hello(Authorize:AuthJWT=Depends()):
 
 
 @order_router.post('/',status_code=status.HTTP_201_CREATED)
-
-async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
+async def place_an_order(order:orderModel,Authorize:AuthJWT=depends()):
 
     try:
         Authorize.jwt_required()
@@ -42,13 +41,13 @@ async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
 
     except Exception as e:
         raise HTTPException (
-        status_code=status.HTTP_401_UNAUTHORIZED.
+        status_code=status.HTTP_401_UNAUTHORIZED,
         detail="invalid token"
     )
 
     current_user=Authorize.get_jwt_subject()
 
-    user = session.query(User).filter(User.username=current_user).first()
+    user = session.query(User).filter(User.username==current_user).first()
 
 
     new_order =Order(
@@ -78,7 +77,7 @@ async def place _an_order(order:orderModel,Authorize:AuthJWT=depends())
 async def list_all_orders(Authorize:AuthJWT=Depends()):
 
     try:
-        Authorize.jwt_required(
+        Authorize.jwt_required()
 
     except Exception as e :
         raise HTTPException(status_code=status_code.HTTP_401_UNAUTHORIZED,
@@ -99,11 +98,11 @@ async def list_all_orders(Authorize:AuthJWT=Depends()):
         detail='invalid user'
     )
 
-        )
+        
 
 
 @order_router.get('/orders/{id}')
-async def get_order_by_id(id:int,Authorize:AuthJWT=Depends())
+async def get_order_by_id(id:int,Authorize:AuthJWT=Depends()):
     try:
         Authorize.jwt_required()
     except Exception as e:
@@ -130,25 +129,29 @@ async def get_order_by_id(id:int,Authorize:AuthJWT=Depends())
 
 
 @order_router.get('/users/order')
-async def get_user_order(()Authorize:AuthJWT=Depends())
+async def get_user_order(Authorize: AuthJWT = Depends(), session: Session = Depends(get_db)):
     try:
         Authorize.jwt_required()
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            details='invalid token'
+            detail="Invalid token"  # ✅ Corrected from 'details' to 'detail'
         )
-    user=Authorize.get_jwt_subject()
-    
 
-    current_user=session.query(User).filter(User.username==user).first()
-    
-    refresh jsonable_encoder(current_user.orders)
+    user = Authorize.get_jwt_subject()
 
+    current_user = session.query(User).filter(User.username == user).first()
+    if not current_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
 
-    
+    session.refresh(current_user)  # ✅ Refresh user if needed
+    return jsonable_encoder(current_user.orders)
+
 @order_router.get('/user/order/{order_id}')
-async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
+async def get_specific_order(id:int,Authorize:AuthJWT=Depends()):
     try:
         Authorize.jwt_required()
     
@@ -160,7 +163,7 @@ async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
 
     subject=Authorize.get_jwt_subject()
 
-    current_user=session.query(User).filter(User.username=subject).first()
+    current_user=session.query(User).filter(User.username==subject).first()
 
     orders=current_user.orders
 
@@ -176,13 +179,13 @@ async def get_specific_order(id:int,Authorize:AuthJWT=Depends())
 
 
 @order_router.put('/order/update/{id}')
-async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
+async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends()):
 
     try:
         Authorize.jwt_required()
 
     except:
-        raise HTTPException as e (
+        raise HTTPException (
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="invalid token"
         )
@@ -202,19 +205,19 @@ async def update_order(id:int,order:orderModel,Authorize:AuthJWT=Depends())
 
 
 @order_router.patch("/order/update/{id}")
-async def update_order_status(id:int,order:OrderStatausModelAuthorize:Authjwt=Depends())
+async def update_order_status(id:int,order:OrderStatausModel,Authorize:Authjwt=Depends()):
     try:
         Authorize.jwt_required()
 
-          except:
-        raise HTTPException as e (
+    except:
+        raise HTTPException (
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="invalid token"
         )
 
     username=Authorize.get_jwt_subject()
 
-    current_user=session.query(User).filter(User.username=username)
+    current_user=session.query(User).filter(User.username==username)
 
     if current_user.is_staff:
         order=session.query(Order).filter(Order.id==id).first()

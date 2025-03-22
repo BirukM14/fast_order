@@ -48,7 +48,7 @@ async def signup(user: SignUpModel):  # Corrected typo here
 
 
 @auth_router.post('/login')
-async def login(user:LoginModel,Authorize:Authjwt=Depends()):
+async def login(user:LoginModel,Authorize:AuthJWT=Depends()):
     db_user=session.query(User).filter(User.username==user.username).first()
 
     if db_user and check_password_hash(db_user.password,user.password):
