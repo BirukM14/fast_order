@@ -18,6 +18,14 @@ session=Session(bind=engine)
 @order_router.get('/')
 async def hello(Authorize:AuthJWT=Depends()):
 
+
+    """
+    ## a sample hello world route
+
+    this is used to jot down the documentation of this route 
+    in swagger ui i can say
+    """
+
     try:
         Authorize.jwt_required()
 
@@ -34,6 +42,11 @@ async def hello(Authorize:AuthJWT=Depends()):
 
 @order_router.post('/',status_code=status.HTTP_201_CREATED)
 async def place_an_order(order:orderModel,Authorize:AuthJWT=depends()):
+
+    """
+    ##placing an order
+    this 
+    """
 
     try:
         Authorize.jwt_required()
