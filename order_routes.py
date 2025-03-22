@@ -92,6 +92,14 @@ async def place_an_order(order:orderModel,Authorize:AuthJWT=depends()):
 @order_router.get('/orders')
 async def list_all_orders(Authorize:AuthJWT=Depends()):
 
+
+    """
+    ##list all order
+    this list all orders made and can be accessed bt the staffs
+
+    """
+
+
     try:
         Authorize.jwt_required()
 
