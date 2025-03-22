@@ -45,7 +45,10 @@ async def place_an_order(order:orderModel,Authorize:AuthJWT=depends()):
 
     """
     ##placing an order
-    this 
+    this requires the following
+
+    - qantity : integer
+    - pizza_size:str
     """
 
     try:
