@@ -51,7 +51,7 @@ async def signup(user: SignUpModel):  # Corrected typo here
 async def login(user:LoginModel,Authorize:Authjwt=Depends()):
     db_user=session.query(User).filter(User.username==user.username).first()
 
-    if db_user and check_password_hash(db_user.password,user.password)
+    if db_user and check_password_hash(db_user.password,user.password):
         access_token=Authorize.create_access_token(subject=db_user.username)
         refresh_token=Authorize.create_refresh_token(subject=db_user.username)
 
