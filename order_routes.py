@@ -251,6 +251,8 @@ async def delete_an_order(id:int,Authorize:AuthJWT=Depends())
 
     session.commit()
 
+    return jsonable_encoder(order_to_delete)
+
     
 
 
