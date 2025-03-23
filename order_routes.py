@@ -119,7 +119,7 @@ async def list_all_orders(Authorize:AuthJWT=Depends()):
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail='invalid user'
+        detail='invalid credential'
     )
 
         
